@@ -98,16 +98,20 @@ textarea{min-height:90px}
 .help{font-size:13px;color:var(--muted)}
 
 .total{
-  margin-top:12px;
-  padding:12px 14px;
-  border:1px dashed var(--border);
+  margin-top:14px;
+  padding:14px 16px;
+  border:2px solid #000;
   border-radius:12px;
   background:#fafafa;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:14px;
 }
-.total .amt{font-size:18px;font-weight:800}
+.total .amt{
+  font-size:22px;
+  font-weight:900;
+}
 
 .buttons{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
 button{
@@ -190,12 +194,16 @@ button.secondary{
         </div>
       </div>
 
+      <!-- CLEAR TOTAL -->
       <div class="total">
         <div>
-          <div class="help">Estimated Total</div>
+          <div class="help"><strong>Amount to write check for:</strong></div>
           <div class="amt">$<span id="total">75.00</span></div>
         </div>
-        <div class="help">Pay by Check or Money Order</div>
+        <div class="help">
+          Make payable to<br>
+          <strong>Versailles United Methodist Church</strong>
+        </div>
       </div>
 
       <div class="section">
@@ -239,7 +247,7 @@ button.secondary{
       <div id="status" class="status"></div>
 
       <div class="fineprint">
-        Make checks or money orders payable to
+        Checks or money orders should be payable to
         <strong>Versailles United Methodist Church</strong>.
       </div>
     </form>
