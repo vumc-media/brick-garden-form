@@ -26,7 +26,7 @@ body{
   color:var(--text);
 }
 
-.wrap{max-width:900px;margin:auto}
+.wrap{max-width:980px;margin:auto}
 
 .card{
   border:1px solid var(--border);
@@ -53,18 +53,13 @@ body{
   height:70px;
   background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);
 }
-@media(max-width:700px){
-  .header-image{height:180px}
-}
-@media print{
-  .header-image{display:none}
-}
+@media(max-width:700px){ .header-image{height:180px} }
+@media print{ .header-image{display:none} }
 
-/* ===== CONTENT ===== */
 .content{padding:22px}
 
 h1{margin:0 0 8px;font-size:26px}
-.sub{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.sub{margin:0 0 14px;color:var(--muted);font-size:14.5px;line-height:1.45}
 
 .pillrow{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}
 .pill{
@@ -80,7 +75,7 @@ h1{margin:0 0 8px;font-size:26px}
   grid-template-columns:1fr 1fr;
   gap:14px;
 }
-@media(max-width:760px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){ .grid{grid-template-columns:1fr} }
 
 label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
 
@@ -95,7 +90,7 @@ textarea{min-height:90px}
 
 .section{margin-top:18px}
 .section h3{margin:0 0 6px;font-size:16px}
-.help{font-size:13px;color:var(--muted)}
+.help{font-size:13px;color:var(--muted);line-height:1.45;margin:0 0 10px}
 
 .total{
   margin-top:14px;
@@ -108,10 +103,7 @@ textarea{min-height:90px}
   align-items:center;
   gap:14px;
 }
-.total .amt{
-  font-size:22px;
-  font-weight:900;
-}
+.total .amt{font-size:22px;font-weight:900}
 
 .buttons{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
 button{
@@ -128,6 +120,7 @@ button.secondary{
   color:#111;
   border:1px solid var(--border);
 }
+button:disabled{opacity:.6;cursor:not-allowed}
 
 .status{
   margin-top:16px;
@@ -135,176 +128,326 @@ button.secondary{
   border-radius:12px;
   display:none;
 }
-.status.ok{
-  display:block;
-  border:1px solid var(--ok);
-  background:var(--okBg);
-}
-.status.err{
-  display:block;
-  border:1px solid var(--err);
-  background:var(--errBg);
-}
+.status.ok{display:block;border:1px solid var(--ok);background:var(--okBg)}
+.status.err{display:block;border:1px solid var(--err);background:var(--errBg)}
 
-.fineprint{
-  margin-top:16px;
+.fineprint{margin-top:16px;font-size:12.5px;color:var(--muted)}
+.req{color:var(--err);font-weight:700}
+
+.paverCard{
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  margin-top:12px;
+  background:#fff;
+}
+.paverHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:10px;
+  margin-bottom:10px;
+}
+.paverTitle{
+  font-weight:900;
+  font-size:15px;
+}
+.paverMeta{
   font-size:12.5px;
   color:var(--muted);
 }
-.req{color:var(--err);font-weight:700}
+.mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;}
+.smallNote{font-size:12.5px;color:var(--muted);margin-top:6px}
+hr.sep{border:none;border-top:1px solid var(--border);margin:14px 0}
 </style>
 </head>
 
 <body>
 <div class="wrap">
-<div class="card">
+  <div class="card">
+    <div class="header-image" role="img" aria-label="Memory Garden brick walkway"></div>
 
-  <div class="header-image" role="img" aria-label="Memory Garden brick walkway"></div>
+    <div class="content">
+      <h1>Memory Garden Brick Order</h1>
+      <p class="sub">
+        Purchase brick pavers for our memorial garden.
+        <strong>Payment by Check or Money Order only.</strong>
+      </p>
 
-  <div class="content">
-    <h1>Memory Garden Brick Order</h1>
-    <p class="sub">
-      Purchase a brick paver for our memorial garden.
-      <strong>Payment by Check or Money Order only.</strong>
-    </p>
+      <div class="pillrow">
+        <div class="pill"><strong>Price:</strong> $75 per paver</div>
+        <div class="pill"><strong>Inscription:</strong> 3 lines · 20 characters each</div>
+        <div class="pill"><strong>Payment:</strong> Check or Money Order</div>
+      </div>
 
-    <div class="pillrow">
-      <div class="pill"><strong>Price:</strong> $75 per paver</div>
-      <div class="pill"><strong>Inscription:</strong> 3 lines · 20 characters each</div>
-      <div class="pill"><strong>Payment:</strong> Check or Money Order</div>
+      <form id="orderForm">
+        <div class="section">
+          <h3>Purchaser Information</h3>
+          <div class="grid">
+            <div>
+              <label>Full Name <span class="req">*</span></label>
+              <input id="fullName" required>
+            </div>
+            <div>
+              <label>Email <span class="req">*</span></label>
+              <input id="email" type="email" required>
+            </div>
+            <div>
+              <label>Mobile Number <span class="req">*</span></label>
+              <input id="mobile" required>
+            </div>
+            <div>
+              <label>How many pavers?</label>
+              <input id="paverCountDisplay" disabled value="1">
+              <div class="smallNote">Use “Add Another Paver” below to add more.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="total">
+          <div>
+            <div class="help"><strong>Amount to write check for:</strong></div>
+            <div class="amt">$<span id="total">75.00</span></div>
+            <div class="smallNote"><span id="countText">1</span> paver(s) × $75</div>
+          </div>
+          <div class="help">
+            Make payable to<br>
+            <strong>Versailles United Methodist Church</strong>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Paver Details</h3>
+          <p class="help">
+            If purchasing multiple pavers, you can set a different dedication (and inscription) for each paver.
+          </p>
+
+          <div class="buttons" style="margin-top:10px">
+            <button type="button" id="addPaverBtn">Add Another Paver</button>
+            <button type="button" class="secondary" id="removePaverBtn">Remove Last Paver</button>
+          </div>
+
+          <div id="paversWrap"></div>
+        </div>
+
+        <div class="section">
+          <h3>Order Notes (optional)</h3>
+          <textarea id="notes" placeholder="Anything else we should know?"></textarea>
+        </div>
+
+        <div class="buttons">
+          <button id="submitBtn" type="submit">Submit Brick Order</button>
+          <button type="reset" class="secondary">Clear</button>
+        </div>
+
+        <div id="status" class="status"></div>
+
+        <div class="fineprint">
+          Checks or money orders should be payable to <strong>Versailles United Methodist Church</strong>.
+        </div>
+      </form>
     </div>
-
-    <form id="orderForm">
-      <div class="grid">
-        <div>
-          <label>Full Name <span class="req">*</span></label>
-          <input id="fullName" required>
-        </div>
-        <div>
-          <label>Email <span class="req">*</span></label>
-          <input id="email" type="email" required>
-        </div>
-        <div>
-          <label>Mobile Number <span class="req">*</span></label>
-          <input id="mobile" required>
-        </div>
-        <div>
-          <label>Number of Pavers <span class="req">*</span></label>
-          <input id="qty" type="number" min="1" value="1" required>
-        </div>
-      </div>
-
-      <!-- CLEAR TOTAL -->
-      <div class="total">
-        <div>
-          <div class="help"><strong>Amount to write check for:</strong></div>
-          <div class="amt">$<span id="total">75.00</span></div>
-        </div>
-        <div class="help">
-          Make payable to<br>
-          <strong>Versailles United Methodist Church</strong>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Memorial / Honoree (optional)</h3>
-        <div class="grid">
-          <div>
-            <label>Dedication Type</label>
-            <select id="dedicationType">
-              <option value="">— Select —</option>
-              <option>In Memory Of</option>
-              <option>In Honor Of</option>
-              <option>Special Occasion</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div>
-            <label>Name / Occasion</label>
-            <input id="honoree">
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Brick Inscription (optional)</h3>
-        <p class="help">Up to 3 lines · 20 characters per line</p>
-        <input id="line1" maxlength="20" placeholder="Line 1">
-        <input id="line2" maxlength="20" placeholder="Line 2" style="margin-top:8px">
-        <input id="line3" maxlength="20" placeholder="Line 3" style="margin-top:8px">
-      </div>
-
-      <div class="section">
-        <h3>Notes (optional)</h3>
-        <textarea id="notes"></textarea>
-      </div>
-
-      <div class="buttons">
-        <button type="submit">Submit Brick Order</button>
-        <button type="reset" class="secondary">Clear</button>
-      </div>
-
-      <div id="status" class="status"></div>
-
-      <div class="fineprint">
-        Checks or money orders should be payable to
-        <strong>Versailles United Methodist Church</strong>.
-      </div>
-    </form>
   </div>
-</div>
 </div>
 
 <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGRk-ePEiBlKt3E86tDmpqwlmfpOUzygVyJHePjoVqEWh_Hne74BH6Y1lf0EW6BtVvdQ/exec";
 const PRICE = 75;
 
-const qty = document.getElementById("qty");
-const total = document.getElementById("total");
+const paversWrap = document.getElementById("paversWrap");
+const paverCountDisplay = document.getElementById("paverCountDisplay");
+const totalEl = document.getElementById("total");
+const countText = document.getElementById("countText");
 const statusBox = document.getElementById("status");
+const submitBtn = document.getElementById("submitBtn");
 
-function updateTotal(){
-  const q = Math.max(1, parseInt(qty.value||1));
-  qty.value = q;
-  total.textContent = (q * PRICE).toFixed(2);
+function escAttr(s){
+  return (s || "").toString().replace(/"/g, "&quot;");
 }
-qty.addEventListener("input", updateTotal);
-updateTotal();
 
-document.getElementById("orderForm").addEventListener("submit", async e=>{
+function paverTemplate(i){
+  const n = i + 1;
+  return `
+    <div class="paverCard" data-paver-index="${i}">
+      <div class="paverHeader">
+        <div>
+          <div class="paverTitle">Paver #${n}</div>
+          <div class="paverMeta">Dedication & inscription for this paver</div>
+        </div>
+        <div class="paverMeta">Max 20 characters per line</div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Dedication Type (optional)</label>
+          <select class="dedicationType">
+            <option value="">— Select —</option>
+            <option>In Memory Of</option>
+            <option>In Honor Of</option>
+            <option>Special Occasion</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div>
+          <label>Name / Occasion (optional)</label>
+          <input class="honoree" placeholder="e.g., John & Mary Smith">
+        </div>
+      </div>
+
+      <hr class="sep"/>
+
+      <label>Inscription (optional)</label>
+      <div class="grid">
+        <div>
+          <label style="margin-top:0">Line 1</label>
+          <input class="line1 mono" maxlength="20" placeholder="Line 1">
+        </div>
+        <div>
+          <label style="margin-top:0">Line 2</label>
+          <input class="line2 mono" maxlength="20" placeholder="Line 2">
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <label>Line 3</label>
+        <input class="line3 mono" maxlength="20" placeholder="Line 3">
+      </div>
+    </div>
+  `;
+}
+
+function getPaverCount(){
+  return paversWrap.querySelectorAll(".paverCard").length;
+}
+
+function updateTotals(){
+  const count = getPaverCount();
+  paverCountDisplay.value = String(count);
+  countText.textContent = String(count);
+  totalEl.textContent = (count * PRICE).toFixed(2);
+}
+
+function addPaver(){
+  const i = getPaverCount();
+  paversWrap.insertAdjacentHTML("beforeend", paverTemplate(i));
+  updateTotals();
+  toggleRemove();
+}
+
+function removePaver(){
+  const cards = paversWrap.querySelectorAll(".paverCard");
+  if(cards.length <= 1) return;
+  cards[cards.length - 1].remove();
+  updateTotals();
+  toggleRemove();
+}
+
+function toggleRemove(){
+  document.getElementById("removePaverBtn").disabled = getPaverCount() <= 1;
+}
+
+function showStatus(type, html){
+  statusBox.className = "status " + (type === "ok" ? "ok" : "err");
+  statusBox.innerHTML = html;
+  statusBox.style.display = "block";
+  statusBox.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function clearStatus(){
+  statusBox.className = "status";
+  statusBox.style.display = "none";
+  statusBox.innerHTML = "";
+}
+
+function clean(s){
+  return (s || "").toString().replace(/\s+/g, " ").trim();
+}
+
+function gatherPavers(){
+  const cards = paversWrap.querySelectorAll(".paverCard");
+  const pavers = [];
+  cards.forEach((card) => {
+    pavers.push({
+      dedicationType: clean(card.querySelector(".dedicationType")?.value),
+      honoree: clean(card.querySelector(".honoree")?.value),
+      inscription: {
+        line1: clean(card.querySelector(".line1")?.value).slice(0,20),
+        line2: clean(card.querySelector(".line2")?.value).slice(0,20),
+        line3: clean(card.querySelector(".line3")?.value).slice(0,20),
+      }
+    });
+  });
+  return pavers;
+}
+
+// Init with 1 paver
+addPaver();
+toggleRemove();
+
+document.getElementById("addPaverBtn").addEventListener("click", addPaver);
+document.getElementById("removePaverBtn").addEventListener("click", removePaver);
+
+document.getElementById("orderForm").addEventListener("reset", () => {
+  // Reset back to 1 paver
+  setTimeout(() => {
+    paversWrap.innerHTML = "";
+    addPaver();
+    clearStatus();
+  }, 0);
+});
+
+document.getElementById("orderForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  statusBox.style.display="none";
+  clearStatus();
+
+  const fullName = clean(document.getElementById("fullName").value);
+  const email = clean(document.getElementById("email").value);
+  const mobile = clean(document.getElementById("mobile").value);
+
+  if(!fullName || !email || !mobile){
+    showStatus("err", "Please fill out <strong>Name, Email,</strong> and <strong>Mobile Number</strong>.");
+    return;
+  }
+
+  const pavers = gatherPavers();
+  const qty = pavers.length;
 
   const payload = {
-    fullName: fullName.value,
-    email: email.value,
-    mobile: mobile.value,
-    qty: qty.value,
+    fullName,
+    email,
+    mobile,
+    qty,
     priceEach: PRICE,
-    dedicationType: dedicationType.value,
-    honoree: honoree.value,
-    inscription:{line1:line1.value,line2:line2.value,line3:line3.value},
-    notes: notes.value
+    total: qty * PRICE,
+    pavers,
+    notes: clean(document.getElementById("notes").value),
+    submittedAtLocal: new Date().toString()
   };
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
 
   try{
     const res = await fetch(SCRIPT_URL,{
       method:"POST",
       headers:{ "Content-Type":"text/plain;charset=utf-8" },
-      body:JSON.stringify(payload)
+      body: JSON.stringify(payload)
     });
-    const data = await res.json();
-    statusBox.className = "status " + (data.ok ? "ok" : "err");
-    statusBox.innerHTML = data.ok
-      ? "<strong>Success!</strong> Your brick order has been submitted."
-      : "<strong>Error:</strong> " + data.error;
-    statusBox.style.display="block";
-    statusBox.scrollIntoView({behavior:"smooth"});
-    if(data.ok) e.target.reset(), updateTotal();
-  }catch{
-    statusBox.className="status err";
-    statusBox.innerHTML="<strong>Error:</strong> Submission failed.";
-    statusBox.style.display="block";
+
+    const data = await res.json().catch(() => ({}));
+    if(data && data.ok){
+      showStatus("ok",
+        `<strong>Success!</strong> Your order was submitted.<br>
+         Please write your check for <strong>$${(qty*PRICE).toFixed(2)}</strong>.`
+      );
+      e.target.reset();
+    } else {
+      showStatus("err", `<strong>Error:</strong> ${(data && data.error) ? data.error : "Submission failed."}`);
+    }
+  }catch(err){
+    showStatus("err", `<strong>Error:</strong> ${err.message}`);
+  }finally{
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit Brick Order";
   }
 });
 </script>
