@@ -148,17 +148,11 @@ button:disabled{opacity:.6;cursor:not-allowed}
   gap:10px;
   margin-bottom:10px;
 }
-.paverTitle{
-  font-weight:900;
-  font-size:15px;
-}
-.paverMeta{
-  font-size:12.5px;
-  color:var(--muted);
-}
+.paverTitle{font-weight:900;font-size:15px}
+.paverMeta{font-size:12.5px;color:var(--muted)}
 .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;}
-.smallNote{font-size:12.5px;color:var(--muted);margin-top:6px}
 hr.sep{border:none;border-top:1px solid var(--border);margin:14px 0}
+.smallNote{font-size:12.5px;color:var(--muted);margin-top:6px}
 </style>
 </head>
 
@@ -197,9 +191,10 @@ hr.sep{border:none;border-top:1px solid var(--border);margin:14px 0}
               <input id="mobile" required>
             </div>
             <div>
-              <label>How many pavers?</label>
-              <input id="paverCountDisplay" disabled value="1">
-              <div class="smallNote">Use “Add Another Paver” below to add more.</div>
+              <label>&nbsp;</label>
+              <div class="smallNote">
+                Add one or more pavers below using the buttons.
+              </div>
             </div>
           </div>
         </div>
@@ -215,6 +210,10 @@ hr.sep{border:none;border-top:1px solid var(--border);margin:14px 0}
             <strong>Versailles United Methodist Church</strong>
           </div>
         </div>
+
+        <p class="help" style="margin-top:10px;">
+          <strong>Pavers in this order:</strong> <span id="countTextInline">1</span>
+        </p>
 
         <div class="section">
           <h3>Paver Details</h3>
@@ -255,15 +254,11 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGRk-ePEiBlKt3E86tD
 const PRICE = 75;
 
 const paversWrap = document.getElementById("paversWrap");
-const paverCountDisplay = document.getElementById("paverCountDisplay");
 const totalEl = document.getElementById("total");
 const countText = document.getElementById("countText");
+const countTextInline = document.getElementById("countTextInline");
 const statusBox = document.getElementById("status");
 const submitBtn = document.getElementById("submitBtn");
-
-function escAttr(s){
-  return (s || "").toString().replace(/"/g, "&quot;");
-}
 
 function paverTemplate(i){
   const n = i + 1;
@@ -321,16 +316,16 @@ function getPaverCount(){
 
 function updateTotals(){
   const count = getPaverCount();
-  paverCountDisplay.value = String(count);
   countText.textContent = String(count);
+  countTextInline.textContent = String(count);
   totalEl.textContent = (count * PRICE).toFixed(2);
+  document.getElementById("removePaverBtn").disabled = count <= 1;
 }
 
 function addPaver(){
   const i = getPaverCount();
   paversWrap.insertAdjacentHTML("beforeend", paverTemplate(i));
   updateTotals();
-  toggleRemove();
 }
 
 function removePaver(){
@@ -338,11 +333,6 @@ function removePaver(){
   if(cards.length <= 1) return;
   cards[cards.length - 1].remove();
   updateTotals();
-  toggleRemove();
-}
-
-function toggleRemove(){
-  document.getElementById("removePaverBtn").disabled = getPaverCount() <= 1;
 }
 
 function showStatus(type, html){
@@ -381,13 +371,11 @@ function gatherPavers(){
 
 // Init with 1 paver
 addPaver();
-toggleRemove();
 
 document.getElementById("addPaverBtn").addEventListener("click", addPaver);
 document.getElementById("removePaverBtn").addEventListener("click", removePaver);
 
 document.getElementById("orderForm").addEventListener("reset", () => {
-  // Reset back to 1 paver
   setTimeout(() => {
     paversWrap.innerHTML = "";
     addPaver();
