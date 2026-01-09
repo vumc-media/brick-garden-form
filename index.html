@@ -6,440 +6,283 @@
   <title>Memory Garden Brick Order</title>
   <style>
     :root{
-      --bg:#0b1220;
-      --card:#111b33;
-      --muted:#a9b4d0;
-      --text:#ffffff;
-      --accent:#7dd3fc;
-      --accent2:#34d399;
-      --danger:#fb7185;
-      --border:rgba(255,255,255,.12);
+      --bg:#ffffff;
+      --card:#ffffff;
+      --text:#111111;
+      --muted:#555555;
+      --border:#d9d9d9;
+      --okBorder:#2e7d32;
+      --okBg:#e8f5e9;
+      --errBorder:#b00020;
+      --errBg:#ffebee;
+      --btn:#111111;
+      --btnText:#ffffff;
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; }
+
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1200px 800px at 20% 0%, #172554, var(--bg));
-      color:var(--text);
       padding:24px 14px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
     }
-    .wrap{
-      max-width:900px;
-      margin:0 auto;
-    }
+
+    .wrap{ max-width:900px; margin:0 auto; }
+
     .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background:var(--card);
       border:1px solid var(--border);
-      border-radius:16px;
+      border-radius:14px;
       padding:22px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    h1{
-      margin:0 0 8px;
-      font-size:28px;
-      letter-spacing:.2px;
-    }
+
+    h1{ margin:0 0 8px; font-size:26px; }
+
     .sub{
-      margin:0 0 18px;
+      margin:0 0 14px;
       color:var(--muted);
       line-height:1.45;
+      font-size:14.5px;
     }
-    .pillrow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin:12px 0 18px;
-    }
+
+    .pillrow{ display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 18px; }
+
     .pill{
       border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
       border-radius:999px;
       padding:8px 12px;
       font-size:13px;
       color:var(--muted);
     }
-    .pill strong{color:var(--text)}
+
     .grid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns:1fr 1fr;
       gap:14px;
     }
-    @media (max-width:760px){
-      .grid{grid-template-columns:1fr}
-    }
+
+    @media(max-width:760px){ .grid{ grid-template-columns:1fr; } }
+
     label{
       display:block;
       font-size:13px;
       color:var(--muted);
-      margin:0 0 6px;
+      margin-bottom:6px;
     }
+
     input, textarea, select{
       width:100%;
-      padding:12px 12px;
-      border-radius:12px;
+      padding:11px 12px;
+      border-radius:10px;
       border:1px solid var(--border);
-      background:rgba(0,0,0,.20);
-      color:var(--text);
-      outline:none;
+      font-size:14.5px;
     }
-    input:focus, textarea:focus{
-      border-color: rgba(125,211,252,.65);
-      box-shadow: 0 0 0 3px rgba(125,211,252,.15);
-    }
-    textarea{min-height:92px; resize:vertical}
-    .sectionTitle{
-      margin:18px 0 10px;
-      font-size:16px;
-      letter-spacing:.2px;
-    }
-    .help{
-      margin:-2px 0 12px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-    .inline{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+
+    textarea{ min-height:96px; }
+
+    .sectionTitle{ margin:18px 0 8px; font-size:16px; font-weight:700; }
+
+    .help{ margin-bottom:12px; font-size:13.5px; color:var(--muted); }
+
     .totalBox{
-      margin-top:10px;
-      padding:12px;
+      margin-top:12px;
+      padding:12px 14px;
       border-radius:12px;
-      border:1px dashed rgba(125,211,252,.45);
-      background: rgba(125,211,252,.07);
-      color: var(--text);
+      border:1px dashed var(--border);
+      background:#fafafa;
       display:flex;
       justify-content:space-between;
       align-items:center;
-      gap:12px;
     }
-    .totalBox .small{color:var(--muted); font-size:13px}
-    .btnRow{
-      margin-top:18px;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
+
+    .amt{ font-size:18px; font-weight:800; }
+
+    .btnRow{ margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; }
+
     button{
-      appearance:none;
       border:none;
-      border-radius:12px;
-      padding:12px 16px;
-      font-weight:650;
+      border-radius:10px;
+      padding:11px 16px;
+      font-weight:750;
       cursor:pointer;
-      background: linear-gradient(90deg, rgba(125,211,252,.95), rgba(52,211,153,.95));
-      color:#06202a;
+      background:var(--btn);
+      color:var(--btnText);
     }
-    button:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-    }
+
     .ghost{
-      background: transparent;
-      border:1px solid var(--border);
+      background:#fff;
       color:var(--text);
-      font-weight:600;
+      border:1px solid var(--border);
     }
+
     .status{
       margin-top:16px;
-      border-radius:12px;
       padding:12px 14px;
-      border:1px solid var(--border);
-      background:rgba(255,255,255,.04);
-      color:var(--text);
+      border-radius:12px;
       display:none;
+      font-size:14px;
     }
+
     .status.ok{
       display:block;
-      border-color: rgba(52,211,153,.45);
-      background: rgba(52,211,153,.09);
+      border:1px solid var(--okBorder);
+      background:var(--okBg);
     }
+
     .status.err{
       display:block;
-      border-color: rgba(251,113,133,.55);
-      background: rgba(251,113,133,.10);
+      border:1px solid var(--errBorder);
+      background:var(--errBg);
     }
+
     .fineprint{
       margin-top:16px;
-      color:var(--muted);
       font-size:12.5px;
-      line-height:1.45;
-    }
-    .counter{
-      font-size:12px;
       color:var(--muted);
-      margin-top:6px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
     }
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;}
+
+    .req{ color:#b00020; font-weight:700; }
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <h1>Memory Garden Brick Order</h1>
-      <p class="sub">
-        Purchase a brick (paver) for our memorial garden. Your brick can be in memory of someone, in honor of someone,
-        a special occasion, or as a way to commemorate being part of Versailles United Methodist Church.
-      </p>
 
-      <div class="pillrow">
-        <div class="pill"><strong>Price per paver:</strong> $<span id="priceEach">75</span></div>
-        <div class="pill"><strong>Inscription:</strong> up to 3 lines, 20 characters per line</div>
-        <div class="pill"><strong>Delivery:</strong> emailed order slip for printing</div>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Memory Garden Brick Order</h1>
+    <p class="sub">
+      Fundraiser for laying brick pavers for a memorial garden.
+      Orders are paid by <strong>Check or Money Order</strong>.
+    </p>
+
+    <div class="pillrow">
+      <div class="pill"><strong>Price per paver:</strong> $75</div>
+      <div class="pill"><strong>Inscription:</strong> up to 3 lines, 20 characters per line</div>
+      <div class="pill"><strong>Payment:</strong> Check or Money Order</div>
+    </div>
+
+    <form id="orderForm" novalidate>
+      <div class="grid">
+        <div>
+          <label>Full Name <span class="req">*</span></label>
+          <input id="fullName" required />
+        </div>
+        <div>
+          <label>Email <span class="req">*</span></label>
+          <input id="email" type="email" required />
+        </div>
+        <div>
+          <label>Mobile Number <span class="req">*</span></label>
+          <input id="mobile" required />
+        </div>
+        <div>
+          <label>Number of Pavers <span class="req">*</span></label>
+          <input id="qty" type="number" min="1" value="1" required />
+        </div>
       </div>
 
-      <form id="orderForm" novalidate>
-        <div class="grid">
-          <div>
-            <label for="fullName">Full Name *</label>
-            <input id="fullName" name="fullName" autocomplete="name" required />
-          </div>
-
-          <div>
-            <label for="email">Email *</label>
-            <input id="email" name="email" type="email" autocomplete="email" required />
-          </div>
-
-          <div>
-            <label for="mobile">Mobile Number *</label>
-            <input id="mobile" name="mobile" autocomplete="tel" required placeholder="(555) 555-5555" />
-          </div>
-
-          <div>
-            <label for="qty">Number of Pavers *</label>
-            <input id="qty" name="qty" type="number" min="1" step="1" required value="1" />
-          </div>
+      <div class="totalBox">
+        <div>
+          <div class="help">Estimated Total</div>
+          <div class="amt">$<span id="total">75.00</span></div>
         </div>
+        <div class="help">Pay by Check or Money Order</div>
+      </div>
 
-        <div class="totalBox" aria-live="polite">
-          <div>
-            <div class="small">Estimated Total</div>
-            <div style="font-size:18px;font-weight:750">$<span id="total">$75</span></div>
-          </div>
-          <div class="small">
-            (Payment handled separately — check or online)
-          </div>
+      <div class="sectionTitle">Memorial / Honoree (optional)</div>
+      <div class="grid">
+        <div>
+          <label>Dedication Type</label>
+          <select id="dedicationType">
+            <option value="">— Select —</option>
+            <option>In Memory Of</option>
+            <option>In Honor Of</option>
+            <option>Special Occasion</option>
+            <option>Other</option>
+          </select>
         </div>
-
-        <div class="sectionTitle">Memorial / Honoree (optional)</div>
-        <p class="help">If you’d like, include who this is for. Example: “In Memory of …” or “In Honor of …”</p>
-
-        <div class="grid">
-          <div>
-            <label for="dedicationType">Dedication Type</label>
-            <select id="dedicationType" name="dedicationType">
-              <option value="">— Select —</option>
-              <option value="In Memory Of">In Memory Of</option>
-              <option value="In Honor Of">In Honor Of</option>
-              <option value="Special Occasion">Special Occasion</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label for="honoree">Name / Occasion</label>
-            <input id="honoree" name="honoree" placeholder="e.g., John & Mary Smith" />
-          </div>
+        <div>
+          <label>Name / Occasion</label>
+          <input id="honoree" />
         </div>
+      </div>
 
-        <div class="sectionTitle">Brick Inscription (optional)</div>
-        <p class="help">
-          Each brick may have up to <strong>3 lines</strong>, <strong>20 characters per line</strong>.
-          (Spaces and punctuation count.)
-        </p>
+      <div class="sectionTitle">Brick Inscription (optional)</div>
+      <p class="help">Up to 3 lines, 20 characters per line.</p>
 
-        <div class="grid">
-          <div>
-            <label for="line1">Line 1</label>
-            <input id="line1" name="line1" maxlength="20" class="mono" placeholder="20 characters max" />
-            <div class="counter"><span>Max 20</span><span id="c1">0 / 20</span></div>
-          </div>
-          <div>
-            <label for="line2">Line 2</label>
-            <input id="line2" name="line2" maxlength="20" class="mono" placeholder="20 characters max" />
-            <div class="counter"><span>Max 20</span><span id="c2">0 / 20</span></div>
-          </div>
-        </div>
-        <div style="margin-top:14px;">
-          <label for="line3">Line 3</label>
-          <input id="line3" name="line3" maxlength="20" class="mono" placeholder="20 characters max" />
-          <div class="counter"><span>Max 20</span><span id="c3">0 / 20</span></div>
-        </div>
+      <input id="line1" maxlength="20" placeholder="Line 1" />
+      <input id="line2" maxlength="20" placeholder="Line 2" style="margin-top:8px;" />
+      <input id="line3" maxlength="20" placeholder="Line 3" style="margin-top:8px;" />
 
-        <div class="sectionTitle">Notes (optional)</div>
-        <p class="help">Anything else we should know? (example: multiple bricks, special instructions)</p>
-        <textarea id="notes" name="notes" placeholder="Type any notes here..."></textarea>
+      <div class="sectionTitle">Notes (optional)</div>
+      <textarea id="notes"></textarea>
 
-        <div class="btnRow">
-          <button id="submitBtn" type="submit">Submit Brick Order</button>
-          <button type="button" class="ghost" id="resetBtn">Clear Form</button>
-        </div>
+      <div class="btnRow">
+        <button type="submit">Submit Brick Order</button>
+        <button type="reset" class="ghost">Clear</button>
+      </div>
 
-        <!-- Success/Error message appears at the BOTTOM of the form -->
-        <div id="status" class="status" role="status" aria-live="polite"></div>
+      <div id="status" class="status"></div>
 
-        <div class="fineprint">
-          By submitting, you’re sending your request to Versailles UMC for processing.
-          If you do not see a confirmation message, please try again or contact the church office.
-        </div>
-      </form>
-    </div>
+      <div class="fineprint">
+        Payment must be made by <strong>Check or Money Order</strong>, payable to
+        <strong>Versailles United Methodist Church</strong>.
+      </div>
+    </form>
   </div>
+</div>
 
 <script>
-  // 1) PASTE your deployed Google Apps Script Web App URL here:
-  const SCRIPT_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGRk-ePEiBlKt3E86tDmpqwlmfpOUzygVyJHePjoVqEWh_Hne74BH6Y1lf0EW6BtVvdQ/exec";
+  const PRICE = 75;
 
-  const PRICE_EACH = 75;
-
-  const $ = (id) => document.getElementById(id);
-  const form = $("orderForm");
-  const submitBtn = $("submitBtn");
-  const statusEl = $("status");
-
-  function money(n){
-    return (Math.round(n * 100) / 100).toFixed(2);
-  }
-
-  function setStatus(type, msg){
-    statusEl.className = "status " + (type === "ok" ? "ok" : "err");
-    statusEl.innerHTML = msg;
-    // Ensure it’s visible at the bottom
-    statusEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
-
-  function clearStatus(){
-    statusEl.className = "status";
-    statusEl.style.display = "none";
-    statusEl.innerHTML = "";
-  }
-
-  function showStatusBox(){
-    statusEl.style.display = "block";
-  }
+  const totalEl = document.getElementById("total");
+  const qtyEl = document.getElementById("qty");
+  const statusEl = document.getElementById("status");
 
   function updateTotal(){
-    const qty = Math.max(1, parseInt($("qty").value || "1", 10));
-    $("qty").value = qty;
-    $("total").textContent = money(qty * PRICE_EACH);
+    const qty = Math.max(1, parseInt(qtyEl.value || 1));
+    qtyEl.value = qty;
+    totalEl.textContent = (qty * PRICE).toFixed(2);
   }
-
-  function bindCounter(inputId, counterId){
-    const input = $(inputId);
-    const counter = $(counterId);
-    const update = () => {
-      const len = (input.value || "").length;
-      counter.textContent = `${len} / 20`;
-    };
-    input.addEventListener("input", update);
-    update();
-  }
-
-  function normalizePhone(raw){
-    return (raw || "").trim();
-  }
-
-  function sanitizeLine(s){
-    return (s || "").replace(/\s+/g, " ").trim();
-  }
-
+  qtyEl.addEventListener("input", updateTotal);
   updateTotal();
-  $("qty").addEventListener("input", updateTotal);
 
-  bindCounter("line1", "c1");
-  bindCounter("line2", "c2");
-  bindCounter("line3", "c3");
-
-  $("resetBtn").addEventListener("click", () => {
-    form.reset();
-    $("qty").value = 1;
-    updateTotal();
-    clearStatus();
-    bindCounter("line1", "c1");
-    bindCounter("line2", "c2");
-    bindCounter("line3", "c3");
-  });
-
-  form.addEventListener("submit", async (e) => {
+  document.getElementById("orderForm").addEventListener("submit", async e => {
     e.preventDefault();
-    clearStatus();
-
-    // Basic required validation
-    const fullName = sanitizeLine($("fullName").value);
-    const email = sanitizeLine($("email").value);
-    const mobile = normalizePhone($("mobile").value);
-    const qty = parseInt($("qty").value || "0", 10);
-
-    if(!fullName || !email || !mobile || !(qty > 0)){
-      showStatusBox();
-      setStatus("err", "Please fill out <strong>Name, Email, Mobile Number</strong>, and <strong>Number of Pavers</strong>.");
-      return;
-    }
-
-    // Enforce inscription length (HTML maxlength helps, but we still guard)
-    const line1 = sanitizeLine($("line1").value).slice(0,20);
-    const line2 = sanitizeLine($("line2").value).slice(0,20);
-    const line3 = sanitizeLine($("line3").value).slice(0,20);
+    statusEl.style.display="none";
 
     const payload = {
-      fullName,
-      email,
-      mobile,
-      qty,
-      priceEach: PRICE_EACH,
-      dedicationType: $("dedicationType").value || "",
-      honoree: sanitizeLine($("honoree").value),
-      inscription: { line1, line2, line3 },
-      notes: ($("notes").value || "").trim(),
-      submittedAtLocal: new Date().toString()
+      fullName: fullName.value,
+      email: email.value,
+      mobile: mobile.value,
+      qty: qtyEl.value,
+      priceEach: PRICE,
+      dedicationType: dedicationType.value,
+      honoree: honoree.value,
+      inscription: { line1: line1.value, line2: line2.value, line3: line3.value },
+      notes: notes.value
     };
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Submitting...";
-
     try{
-      if(!SCRIPT_URL || SCRIPT_URL.includes("PASTE_YOUR_GOOGLE")){
-        throw new Error("Missing Apps Script URL. Paste your deployed Web App URL into SCRIPT_URL.");
-      }
-
-      const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        mode: "cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
+      const res = await fetch(SCRIPT_URL,{
+        method:"POST",
+        headers:{ "Content-Type":"text/plain;charset=utf-8" },
+        body:JSON.stringify(payload)
       });
-
-      const data = await res.json().catch(() => ({}));
-      showStatusBox();
-
-      if(data && data.ok){
-        setStatus("ok",
-          `<strong>Success!</strong> Your brick order was submitted.<br/>
-           A printable order slip has been emailed to the church office.`
-        );
-        form.reset();
-        $("qty").value = 1;
-        updateTotal();
-        bindCounter("line1", "c1");
-        bindCounter("line2", "c2");
-        bindCounter("line3", "c3");
-      } else {
-        const msg = (data && data.error) ? data.error : "Something went wrong. Please try again.";
-        setStatus("err", `<strong>Submission failed:</strong> ${msg}`);
-      }
-    }catch(err){
-      showStatusBox();
-      setStatus("err", `<strong>Submission failed:</strong> ${err.message}`);
-    }finally{
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Submit Brick Order";
+      const data = await res.json();
+      statusEl.className = "status " + (data.ok ? "ok" : "err");
+      statusEl.innerHTML = data.ok
+        ? "<strong>Success!</strong> Your order has been submitted."
+        : "<strong>Error:</strong> " + data.error;
+      statusEl.style.display="block";
+      statusEl.scrollIntoView({behavior:"smooth"});
+      if(data.ok) e.target.reset(), updateTotal();
+    } catch(err){
+      statusEl.className="status err";
+      statusEl.innerHTML="<strong>Error:</strong> Submission failed.";
+      statusEl.style.display="block";
     }
   });
 </script>
